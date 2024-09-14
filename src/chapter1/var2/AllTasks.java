@@ -2,7 +2,7 @@ package chapter1.var2;
 
 import java.util.Scanner;
 
-public class OddAndEvenNumbers {
+public class AllTasks {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
