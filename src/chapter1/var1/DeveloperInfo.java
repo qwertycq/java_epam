@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 public class DeveloperInfo {
     public static void main(String[] args) {
-        String developerName = "Ochriov";
+        String developerName = "Ochirov B";
         String date = "07.09.2024 14:00";
 
         LocalDateTime now = LocalDateTime.now();
@@ -15,6 +15,4 @@ public class DeveloperInfo {
         System.out.println("Дата и время получения задания: " + date);
         System.out.println("Дата и время сдачи задания: " + now.format(formatter));
     }
-
-
 }
