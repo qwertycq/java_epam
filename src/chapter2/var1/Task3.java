@@ -13,6 +13,11 @@ public class Task3 {
         for (int i = 0; i < array.length; i++) {
             array[i] = scanner.nextInt();
         }
-        DeveloperInfo.main(args);
+
+        double average = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i]);
+        }
     }
 }
