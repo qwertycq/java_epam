@@ -22,6 +22,5 @@ public class Task2 {
             System.out.print(array[i] + " ");
         }
 
-        DeveloperInfo.main(args);
     }
 }
