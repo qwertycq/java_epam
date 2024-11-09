@@ -1,3 +1,5 @@
+// Очиров Б. Б762-2, 8 Вариант
+
 package chapter3.var2;
 
 import java.util.*;
