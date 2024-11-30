@@ -42,7 +42,7 @@ public class PhoneNumberSubstring {
     }
 
     // Генерация всех возможных слов для заданной подстроки цифр
-    private static Set<String> generateWords(String digits) {
+    public static Set<String> generateWords(String digits) {
         Set<String> result = new HashSet<>();
 
         if (digits.isEmpty()) {
