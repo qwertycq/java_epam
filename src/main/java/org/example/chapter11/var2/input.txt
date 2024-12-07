@@ -1,0 +1,5 @@
+Apple, 103
+Banana, 101
+Apple, 102
+Cherry, 104
+Banana, 105
