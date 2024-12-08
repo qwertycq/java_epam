@@ -1,3 +1,5 @@
+// Вариант: 8 Очиров Б. Б762-2
+
 package org.example.chapter8.var2;
 
 import java.util.List;

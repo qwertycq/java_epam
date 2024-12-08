@@ -5,8 +5,10 @@ import java.util.List;
 
 public class Train {
     private List<Carriage> carriages;
+    private Locomotive locomotive;
 
-    public Train() {
+    public Train(Locomotive locomotive) {
+        this.locomotive = locomotive;
         this.carriages = new ArrayList<>();
     }
 
@@ -16,5 +18,9 @@ public class Train {
 
     public List<Carriage> getCarriages() {
         return carriages;
+    }
+
+    public Locomotive getLocomotive() {
+        return locomotive;
     }
 }

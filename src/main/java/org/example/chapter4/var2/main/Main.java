@@ -1,3 +1,5 @@
+// Вариант: 8 Очиров Б. Б762-2
+
 package org.example.chapter4.var2.main;
 
 import org.example.chapter4.var2.service.FileInitializer;
@@ -10,7 +12,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         try {
-            Train train = FileInitializer.initializeTrain("C:\\Users\\Bator\\Desktop\\java_projects\\java_emap\\src\\chapter4\\var2\\train_data.txt");
+            Train train = FileInitializer.initializeTrain("C:\\Users\\Bator\\Desktop\\java_projects\\java_epam\\src\\main\\java\\org\\example\\chapter4\\var2\\train_data.txt");
             TrainService trainService = new TrainService();
             Scanner scanner = new Scanner(System.in);
 
@@ -18,6 +20,7 @@ public class Main {
             System.out.println("1. Подсчитать общую численность пассажиров и багажа");
             System.out.println("2. Сортировать вагоны по уровню комфортности и вывести их");
             System.out.println("3. Найти вагоны по числу пассажиров");
+            System.out.println("4. Вывести информацию о локомотиве");
             System.out.print("Выберите опцию: ");
             int choice = scanner.nextInt();
 
@@ -47,6 +50,10 @@ public class Main {
                                 ", Пассажиры: " + carriage.getPassengerCapacity() +
                                 ", Багаж: " + carriage.getBaggageCapacity());
                     }
+                }
+                case 4 -> {
+                    System.out.println("Информация о локомотиве:");
+                    System.out.println(train.getLocomotive());
                 }
                 default -> System.out.println("Неверный выбор!");
             }
