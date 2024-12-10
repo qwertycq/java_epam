@@ -1,68 +1,52 @@
 package chapter10.var3;
 
-import org.example.chapter10.var3.RemoveExtraSpaces;
-import org.junit.jupiter.api.*;
-import java.io.*;
-import java.nio.file.*;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class RemoveExtraSpacesTest {
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-    private static final String INPUT_FILE_PATH = "test_input.java";
-    private static final String OUTPUT_DIR_PATH = "test_output";
-    private static final String OUTPUT_FILE_PATH = OUTPUT_DIR_PATH + "/output.java";
+public class RemoveExtraSpacesTest {
+
+    private File inputFile;
+    private File outputFile;
 
     @BeforeEach
-    void setup() throws IOException {
-        // Создание тестового входного файла
-        Files.writeString(Path.of(INPUT_FILE_PATH), """
-                public   class    Main {     
-                    public static void     main(String[] args) {       
-                        System.out.println(   "Hello, World!"   ); 
-                    } 
-                }
-                """);
+    public void setUp() throws IOException {
+        // Создание временного входного файла
+        inputFile = Files.createTempFile("input", ".java").toFile();
+        outputFile = new File("src/main/java/chapter10/var3/Output.java");
 
-        // Удаление выходной директории перед тестами, если она существует
-        Path outputDir = Path.of(OUTPUT_DIR_PATH);
-        if (Files.exists(outputDir)) {
-            Files.walk(outputDir)
-                    .map(Path::toFile)
-                    .forEach(File::delete);
+        String content = "public class Test {\n" +
+                "    public static void main(String[] args) {  \n" +
+                "        System.out.println(\"Hello, World!\"); \n" +
+                "    }\n" +
+                "}  ";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(inputFile))) {
+            writer.write(content);
         }
     }
 
     @Test
-    void testRemoveExtraSpaces() throws IOException {
-        // Выполнение программы
-        RemoveExtraSpaces.main(null);
+    public void testRemoveExtraSpaces() throws IOException {
+        // Запуск основного кода
+        RemoveExtraSpaces.main(new String[0]);
 
-        // Проверка, что файл создан
-        File outputFile = new File(OUTPUT_FILE_PATH);
-        assertTrue(outputFile.exists(), "Файл результата должен существовать");
+        // Ожидаемый результат
+        String expectedOutput = "public class Test {\n" +
+                "    public static void main(String[] args) {\n" +
+                "        System.out.println(\"Hello, World!\");\n" +
+                "    }\n" +
+                "}";
 
-        // Проверка содержимого выходного файла
-        String expectedOutput = """
-                public class Main {
-                    public static void main(String[] args) {
-                        System.out.println("Hello, World!");
-                    }
-                }
-                """;
-        String actualOutput = Files.readString(Path.of(OUTPUT_FILE_PATH));
-        assertEquals(expectedOutput.strip(), actualOutput.strip(), "Содержимое файла должно соответствовать ожидаемому результату");
-    }
+        // Сравнение результата с ожидаемым
+        String output = new String(Files.readAllBytes(outputFile.toPath()));
+        assertEquals(expectedOutput, output.trim());
 
-    @AfterEach
-    void cleanup() throws IOException {
-        // Удаление тестовых файлов
-        Files.deleteIfExists(Path.of(INPUT_FILE_PATH));
-        Path outputDir = Path.of(OUTPUT_DIR_PATH);
-        if (Files.exists(outputDir)) {
-            Files.walk(outputDir)
-                    .map(Path::toFile)
-                    .forEach(File::delete);
-        }
+        // Очистка временных файлов после теста
+        Files.delete(inputFile.toPath());
+        Files.delete(outputFile.toPath());
     }
 }

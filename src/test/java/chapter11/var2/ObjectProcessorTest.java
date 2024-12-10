@@ -1,6 +1,5 @@
 package chapter11.var2;
 
-import org.example.chapter11.var2.ObjectProcessor;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

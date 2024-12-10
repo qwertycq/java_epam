@@ -2,8 +2,6 @@ package chapter8.var2;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.example.chapter8.var2.TextProcessor;
-import org.example.chapter8.var2.Word;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 

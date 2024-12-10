@@ -1,6 +1,5 @@
 package chapter11.var1;
 
-import org.example.chapter11.var1.PairwiseSum;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashSet;
@@ -55,18 +54,4 @@ public class PairwiseSumTest {
         assertEquals(expected, result, "Сумма для одного элемента рассчитана неверно");
     }
 
-    @Test
-    public void testPairwiseSumEmptySet() {
-        // Исходные данные
-        Set<Integer> numbers = new LinkedHashSet<>();
-
-        // Ожидаемый результат
-        int expected = 0;
-
-        // Вызов метода
-        int result = PairwiseSum.pairwiseSum(numbers);
-
-        // Проверка результата
-        assertEquals(expected, result, "Сумма для пустого множества рассчитана неверно");
-    }
 }

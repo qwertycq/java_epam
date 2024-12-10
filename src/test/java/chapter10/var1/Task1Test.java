@@ -1,6 +1,5 @@
 package chapter10.var1;
 
-import org.example.chapter10.var1.Task1;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
