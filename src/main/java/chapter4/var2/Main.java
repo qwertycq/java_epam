@@ -1,6 +1,6 @@
 // Вариант: 8 Очиров Б. Б762-2
 
-package chapter4.var2.main;
+package chapter4.var2;
 
 import chapter4.var2.service.FileInitializer;
 import chapter4.var2.service.TrainService;
@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         try {
-            Train train = FileInitializer.initializeTrain("C:\\Users\\Bator\\Desktop\\java_projects\\java_epam\\src\\main\\java\\org\\example\\chapter4\\var2\\train_data.txt");
+            Train train = FileInitializer.initializeTrain("src/main/java/chapter4/var2/train_data.txt");
             TrainService trainService = new TrainService();
             Scanner scanner = new Scanner(System.in);
 

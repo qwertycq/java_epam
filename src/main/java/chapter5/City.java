@@ -2,29 +2,37 @@
 
 package chapter5;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class City {
+    private String cityName;
+    private List<Location> locations;
 
-    private String name;
+    public City(String cityName) {
+        this.cityName = cityName;
+        this.locations = new ArrayList<>();
+    }
 
-    public City(String name) {
-        this.name = name;
+    public void addLocation(String type, String name) {
+        locations.add(new Location(type, name));
+    }
+
+    public void displayLocations() {
+        System.out.println("Город: " + cityName);
+        System.out.println("Местоположения:");
+        for (Location location : locations) {
+            System.out.println(location);
+        }
     }
 
     public class Location {
         private String type;
         private String name;
 
-        public Location(String type, String name) {
+        private Location(String type, String name) {
             this.type = type;
             this.name = name;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public String getName() {
-            return name;
         }
 
         @Override
@@ -33,21 +41,14 @@ public class City {
         }
     }
 
-    public String getCityName() {
-        return name;
-    }
-
     public static void main(String[] args) {
-        City city = new City("Улан-Удэ");
+        City city = new City("Город");
 
-        Location avenue = city.new Location("Проспект", "Строителей");
-        Location street = city.new Location("Улица", "Жердева");
-        Location square = city.new Location("Площадь", "Советов");
+        city.addLocation("Проспект", "1");
+        city.addLocation("Улица", "2");
+        city.addLocation("Площадь", "3");
 
-        System.out.println("Город: " + city.getCityName());
-        System.out.println("Местоположения:");
-        System.out.println(avenue);
-        System.out.println(street);
-        System.out.println(square);
+        city.displayLocations();
     }
+
 }

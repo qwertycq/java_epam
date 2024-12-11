@@ -8,7 +8,7 @@ import java.text.*;
 
 public class NumberProcessor {
     public static void main(String[] args) {
-        String filename = "src/main/java/chapter9/numbers.txt"; // Путь к файлу
+        String filename = "src/main/java/chapter9/numbers.txt";
         try {
             List<Double> numbers = readAndParseFile(filename);
             double sum = 0;
