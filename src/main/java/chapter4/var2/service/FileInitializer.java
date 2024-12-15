@@ -13,7 +13,6 @@ public class FileInitializer {
         Train train;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            // Чтение данных локомотива (первая строка файла)
             String locomotiveLine = reader.readLine();
             if (locomotiveLine == null) {
                 throw new IOException("Файл не содержит данных локомотива");
@@ -24,10 +23,8 @@ public class FileInitializer {
             int weight = Integer.parseInt(locomotiveParts[2].trim());
             Locomotive locomotive = new Locomotive(fuelType, power, weight);
 
-            // Инициализация поезда с локомотивом
             train = new Train(locomotive);
 
-            // Чтение данных вагонов
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");

@@ -11,13 +11,25 @@ class Account {
         this.balance = initialBalance;
     }
 
+    public void deposit(double amount) {
+        lock.lock();
+        try {
+            balance += amount;
+            System.out.println(Thread.currentThread().getName() + " пополнил счет на " + amount + ". Текущий баланс: " + balance);
+        } finally {
+            lock.unlock();
+        }
+    }
+
     public boolean withdraw(double amount) {
         lock.lock();
         try {
             if (balance >= amount) {
                 balance -= amount;
+                System.out.println(Thread.currentThread().getName() + " снял " + amount + ". Текущий баланс: " + balance);
                 return true;
             } else {
+                System.out.println(Thread.currentThread().getName() + " не может снять " + amount + ". Недостаточно средств.");
                 return false;
             }
         } finally {
@@ -25,16 +37,30 @@ class Account {
         }
     }
 
-    public void deposit(double amount) {
+    public boolean transfer(Account targetAccount, double amount) {
         lock.lock();
         try {
-            balance += amount;
+            if (this.withdraw(amount)) {
+                targetAccount.deposit(amount);
+                System.out.println(Thread.currentThread().getName() + " перевел " + amount + " на счет " + targetAccount);
+                return true;
+            }
+            return false;
         } finally {
             lock.unlock();
         }
     }
 
+    public boolean pay(double amount) {
+        return withdraw(amount);
+    }
+
     public double getBalance() {
-        return balance;
+        lock.lock();
+        try {
+            return balance;
+        } finally {
+            lock.unlock();
+        }
     }
 }

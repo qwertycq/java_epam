@@ -24,7 +24,7 @@ public class NumberProcessorTest {
         assertEquals(12.34 + 56.78 + 90.12, numbers.stream().mapToDouble(Double::doubleValue).sum(), 0.01);
         assertEquals((12.34 + 56.78 + 90.12) / 3, numbers.stream().mapToDouble(Double::doubleValue).average().orElse(0), 0.01);
 
-        Files.delete(Paths.get(testFile)); // Очистка файла
+        Files.delete(Paths.get(testFile));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class NumberProcessorTest {
 
         assertTrue(exception.getMessage().contains("Ошибка парсинга числа"));
 
-        Files.delete(Paths.get(testFile)); // Очистка файла
+        Files.delete(Paths.get(testFile));
     }
 
 

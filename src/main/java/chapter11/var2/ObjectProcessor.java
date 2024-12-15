@@ -5,15 +5,13 @@ import java.util.stream.Collectors;
 
 public class ObjectProcessor {
 
-    // Метод обработки данных: сортировка и удаление дубликатов
     public static List<ObjectInfo> processObjects(List<ObjectInfo> objects) {
         return objects.stream()
-                .sorted(Comparator.comparingInt(ObjectInfo::getCode)) // Сортировка по шифру
-                .distinct() // Удаление дубликатов по наименованию
+                .sorted(Comparator.comparingInt(ObjectInfo::getCode))
+                .distinct()
                 .collect(Collectors.toList());
     }
 
-    // Класс для хранения объекта с наименованием и шифром
     public static class ObjectInfo {
         private final String name;
         private final int code;

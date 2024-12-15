@@ -1,9 +1,9 @@
 package chapter12;
 
-class Cashier implements Runnable {
+class VaultObserver implements Runnable {
     private final Vault vault;
 
-    public Cashier(Vault vault) {
+    public VaultObserver(Vault vault) {
         this.vault = vault;
     }
 
@@ -11,10 +11,9 @@ class Cashier implements Runnable {
     public void run() {
         try {
             while (true) {
-                if (vault.withdrawCash(100)) {
-                    System.out.println(Thread.currentThread().getName() + " снял 100 из кассы.");
-                }
-                Thread.sleep(500);
+                vault.replenishCash();
+                vault.moveExcessCashToStorage();
+                Thread.sleep(2000);
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

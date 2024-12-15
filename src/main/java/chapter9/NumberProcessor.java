@@ -27,7 +27,6 @@ public class NumberProcessor {
         }
     }
 
-    // Метод для чтения и парсинга файла
     static List<Double> readAndParseFile(String filename) throws CustomFileException {
         List<Double> numbers = new ArrayList<>();
         BufferedReader reader = null;
@@ -35,7 +34,7 @@ public class NumberProcessor {
         try {
             reader = new BufferedReader(new FileReader(filename));
             String line;
-            Locale currentLocale = Locale.getDefault(); // Локаль по умолчанию
+            Locale currentLocale = Locale.getDefault();
 
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
@@ -53,7 +52,6 @@ public class NumberProcessor {
                 }
 
                 try {
-                    // Установка локали для парсинга числа
                     NumberFormat format = NumberFormat.getInstance(currentLocale);
                     Number number = format.parse(numberStr);
                     if (number.doubleValue() < Double.MIN_VALUE || number.doubleValue() > Double.MAX_VALUE) {
@@ -69,7 +67,7 @@ public class NumberProcessor {
         } catch (IOException e) {
             throw new CustomFileException("Ошибка чтения файла: " + e.getMessage());
         } catch (OutOfMemoryError e) {
-            throw e; // Пробрасываем ошибку памяти
+            throw e;
         } finally {
             try {
                 if (reader != null) {

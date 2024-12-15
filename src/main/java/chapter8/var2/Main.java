@@ -12,7 +12,6 @@ public class Main {
 
         List<Word> sortedWords = processor.processText(text);
 
-        // Выводим отсортированные слова
         System.out.println("Отсортированные слова:");
         for (Word word : sortedWords) {
             System.out.println(word.getValue());

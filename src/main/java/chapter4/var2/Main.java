@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         try {
-            Train train = FileInitializer.initializeTrain("src/main/java/chapter4/var2/train_data.txt");
+            Train train = FileInitializer.initializeTrain("src/main/java/chapter4/var2/train_data.ser");
             TrainService trainService = new TrainService();
             Scanner scanner = new Scanner(System.in);
 

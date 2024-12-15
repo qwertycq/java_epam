@@ -13,23 +13,19 @@ public class Main {
         String inputFile = "src/main/java/chapter11/var2/input.txt";
 
         try {
-            // Чтение данных из файла
             List<String> lines = Files.readAllLines(Paths.get(inputFile));
 
-            // Преобразование строк в список объектов ObjectInfo
             List<ObjectProcessor.ObjectInfo> objects = lines.stream()
                     .map(line -> {
-                        String[] parts = line.split(","); // Разделяем строку по запятой
-                        String name = parts[0].trim();    // Наименование объекта
-                        int code = Integer.parseInt(parts[1].trim()); // Шифр
+                        String[] parts = line.split(",");
+                        String name = parts[0].trim();
+                        int code = Integer.parseInt(parts[1].trim());
                         return new ObjectProcessor.ObjectInfo(name, code);
                     })
                     .collect(Collectors.toList());
 
-            // Обработка данных: сортировка и удаление дубликатов
             List<ObjectProcessor.ObjectInfo> processedObjects = ObjectProcessor.processObjects(objects);
 
-            // Вывод результата
             System.out.println("Результат обработки:");
             processedObjects.forEach(System.out::println);
 

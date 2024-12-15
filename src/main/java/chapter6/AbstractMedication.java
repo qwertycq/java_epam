@@ -35,13 +35,13 @@ public abstract class AbstractMedication implements ActiveSubstance, Medication 
     public abstract void calculateDosage(double weight, double age);
 
     @Override
-    @ResearchRequired(description = "Essential for new substances")
+    @ResearchRequired(description = "Необходимо для новых веществ")
     public void conductResearch() {
-        System.out.println("Conducting research on " + name);
+        System.out.println("Проведение исследования по " + name);
     }
 
     @Override
     public String toString() {
-        return "Name: " + name + "\nStatus: " + status + "\nSubstances: " + getSubstanceInfo();
+        return "Название: " + name + "\nСтатус: " + status + "\nВещества: " + getSubstanceInfo();
     }
 }

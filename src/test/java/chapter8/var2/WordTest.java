@@ -21,7 +21,6 @@ public class WordTest {
         Word word1 = new Word("Атмосфера");
         Word word2 = new Word("Текст");
 
-        // Проверяем первую согласную букву
         assertEquals('т', word1.getFirstConsonant());  // Ожидаем 'т', а не 'м'
         assertEquals('т', word2.getFirstConsonant());  // Первая согласная для "Текст" — 'т'
     }

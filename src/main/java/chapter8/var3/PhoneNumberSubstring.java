@@ -11,16 +11,13 @@ public class PhoneNumberSubstring {
     };
 
     public static void main(String[] args) {
-        // Пример телефонного номера и словаря
-        String phoneNumber = "4663"; // Пример: 4663
+        String phoneNumber = "4663";
         Set<String> dictionary = new HashSet<>(Arrays.asList("GOOD", "HOME", "HOOD", "MOM", "GONE"));
 
-        // Находим максимальную подстроку, которая соответствует слову из словаря
         String result = findLongestWord(phoneNumber, dictionary);
         System.out.println("Longest word: " + result);
     }
 
-    // Функция для нахождения самой длинной подстроки, которая является словом из словаря
     public static String findLongestWord(String phoneNumber, Set<String> dictionary) {
         int maxLength = 0;
         String longestWord = "";
@@ -43,7 +40,6 @@ public class PhoneNumberSubstring {
         return longestWord;
     }
 
-    // Генерация всех возможных слов для заданной подстроки цифр
     public static Set<String> generateWords(String digits) {
         Set<String> result = new HashSet<>();
 
@@ -51,10 +47,8 @@ public class PhoneNumberSubstring {
             return result;
         }
 
-        // Получаем буквы для первой цифры
         char[] firstDigitLetters = LETTERS[digits.charAt(0) - '0'].toCharArray();
 
-        // Если это единственная цифра, то просто возвращаем соответствующие буквы
         if (digits.length() == 1) {
             for (char c : firstDigitLetters) {
                 result.add(String.valueOf(c));
@@ -62,10 +56,8 @@ public class PhoneNumberSubstring {
             return result;
         }
 
-        // Генерируем слова для остальной части цифр
         Set<String> remainingWords = generateWords(digits.substring(1));
 
-        // Для каждой буквы первой цифры добавляем возможные слова из оставшихся цифр
         for (char c : firstDigitLetters) {
             for (String word : remainingWords) {
                 result.add(c + word);

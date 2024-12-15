@@ -31,21 +31,17 @@ public class RemoveExtraSpacesTest {
 
     @Test
     public void testRemoveExtraSpaces() throws IOException {
-        // Запуск основного кода
         RemoveExtraSpaces.main(new String[0]);
 
-        // Ожидаемый результат
         String expectedOutput = "public class Test {\n" +
                 "    public static void main(String[] args) {\n" +
                 "        System.out.println(\"Hello, World!\");\n" +
                 "    }\n" +
                 "}";
 
-        // Сравнение результата с ожидаемым
         String output = new String(Files.readAllBytes(outputFile.toPath()));
         assertEquals(expectedOutput, output.trim());
 
-        // Очистка временных файлов после теста
         Files.delete(inputFile.toPath());
         Files.delete(outputFile.toPath());
     }

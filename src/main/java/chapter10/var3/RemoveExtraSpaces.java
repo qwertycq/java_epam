@@ -27,11 +27,10 @@ public class RemoveExtraSpaces {
         ) {
             String line;
             while ((line = reader.readLine()) != null) {
-                // Удаление лишних пробелов и табуляций
-                String trimmedLine = line.trim(); // Удаление начальных и конечных пробелов
-                String compactedLine = trimmedLine.replaceAll("\\s+", " "); // Замена множественных пробелов на один
+                String trimmedLine = line.trim();
+                String compactedLine = trimmedLine.replaceAll("\\s+", " ");
                 writer.write(compactedLine);
-                writer.newLine(); // Перевод строки для сохранения структуры кода
+                writer.newLine();
             }
 
             System.out.println("Обработка завершена. Результат записан в файл: " + outputFile.getAbsolutePath());
