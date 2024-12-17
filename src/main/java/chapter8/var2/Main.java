@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        String text = "Это пример текста, который начинается с гласных букв, а затем идет на согласные.";
+        String text = "Пример текста, который начинается с гласных букв, а затем идет на согласные.";
 
         TextProcessor processor = new TextProcessor();
 

@@ -22,7 +22,6 @@ public class PhoneNumberSubstring {
         int maxLength = 0;
         String longestWord = "";
 
-        // Перебираем все возможные подстроки
         for (int i = 0; i < phoneNumber.length(); i++) {
             for (int j = i + 1; j <= phoneNumber.length(); j++) {
                 String substring = phoneNumber.substring(i, j);

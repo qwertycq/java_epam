@@ -11,18 +11,16 @@ public class Word {
         return value;
     }
 
-    // Проверка, начинается ли слово с гласной буквы
     public boolean startsWithVowel() {
         return value.matches("^[аеёиоуыэюяАЕЁИОУЫЭЮЯ].*");
     }
 
-    // Метод для нахождения первой согласной буквы
     public char getFirstConsonant() {
         for (char ch : value.toLowerCase().toCharArray()) {
             if (ConsonantUtils.isConsonant(ch)) {
                 return ch;
             }
         }
-        return ' '; // Если нет согласных букв
+        return ' ';
     }
 }

@@ -20,7 +20,6 @@ class Client implements Runnable {
                 account.pay(50);
                 account.deposit(200);
 
-                // Задержка между операциями
                 Thread.sleep(2000);
             }
         } catch (InterruptedException e) {
