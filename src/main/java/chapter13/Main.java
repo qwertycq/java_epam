@@ -1,29 +1,19 @@
 package chapter13;
 
-import java.sql.Date;
-import java.sql.SQLException;
-
 public class Main {
     public static void main(String[] args) {
-        try {
-            WeatherQuery query = new WeatherQuery();
+        WeatherDAO weatherDAO = new WeatherDAO();
 
-            query.getWeatherByRegion("Moscow");
+        System.out.println("Погода в определенном регионе:");
+        weatherDAO.getWeatherByRegion("Санкт-Петербург");
 
-            query.getSnowyDaysWithLowTemp("Moscow", -10);
+        System.out.println("\nДаты со снегом и температурой ниже -5:");
+        weatherDAO.getSnowDates("Москва", -5);
 
-            query.getWeatherForLastWeek("Russian");
+        System.out.println("\nПогода в регионах, где языком является англиский:");
+        weatherDAO.getWeatherByLanguage("Английский");
 
-            query.getAvgTemperatureForLargeRegions(10000);
-
-            WeatherUpdater updater = new WeatherUpdater();
-            // Обновление температуры
-            updater.updateTemperature(1, Date.valueOf("2024-12-12"), -5);
-
-            // Добавление новой записи
-            updater.addWeatherRecord(1, Date.valueOf("2024-12-13"), -2, "snow");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        System.out.println("\nСредняя температура в регионах площадью > 500 за последнюю неделю:");
+        weatherDAO.getAverageTemperature(500);
     }
 }
