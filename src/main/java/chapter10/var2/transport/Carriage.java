@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public abstract class Carriage implements Serializable {
     private static final long serialVersionUID = 1L;
+
     private int comfortLevel;
     private int passengerCapacity;
     private int baggageCapacity;

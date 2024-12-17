@@ -10,21 +10,13 @@ import java.util.stream.Collectors;
 public class TrainService {
     public int calculateTotalPassengers(Train train) {
         return train.getCarriages().stream()
-                .mapToInt(carriage -> {
-                    int passengers = carriage.getPassengerCapacity();
-                    System.out.println("Число пассажиров в вагоне: " + passengers);
-                    return passengers;
-                })
+                .mapToInt(Carriage::getPassengerCapacity)
                 .sum();
     }
 
     public int calculateTotalBaggage(Train train) {
         return train.getCarriages().stream()
-                .mapToInt(carriage -> {
-                    int baggage = carriage.getBaggageCapacity();
-                    System.out.println("Число багажа в вагоне: " + baggage);
-                    return baggage;
-                })
+                .mapToInt(Carriage::getBaggageCapacity)
                 .sum();
     }
 

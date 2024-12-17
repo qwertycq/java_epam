@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Locomotive implements Serializable {
     private static final long serialVersionUID = 1L;
+
     private String fuelType;
     private int power;
     private int weight;
@@ -12,18 +13,6 @@ public class Locomotive implements Serializable {
         this.fuelType = fuelType;
         this.power = power;
         this.weight = weight;
-    }
-
-    public String getFuelType() {
-        return fuelType;
-    }
-
-    public int getPower() {
-        return power;
-    }
-
-    public int getWeight() {
-        return weight;
     }
 
     @Override

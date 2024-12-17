@@ -1,109 +1,76 @@
+// Вариант: 8 Очиров Б. Б762-2
+
 package chapter10.var2;
 
+import chapter10.var2.service.FileInitializer;
 import chapter10.var2.service.TrainService;
 import chapter10.var2.transport.Carriage;
 import chapter10.var2.transport.Train;
 
 import java.util.Scanner;
-import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Train train = null;
+        TrainService trainService = new TrainService();
+        String filePath = "src/main/java/chapter10/var2/train_data.ser";
 
-        while (true) {
-            System.out.println("=== Меню ===");
+        try {
+            // Загружаем поезд из файла или инициализируем новый
             System.out.println("1. Загрузить поезд из файла");
-            System.out.println("2. Сохранить поезд в файл");
-            System.out.println("3. Подсчитать общую численность пассажиров и багажа");
-            System.out.println("4. Сортировать вагоны по уровню комфортности и вывести их");
-            System.out.println("5. Найти вагоны по числу пассажиров");
-            System.out.println("6. Вывести информацию о локомотиве");
-            System.out.println("7. Выйти");
-            System.out.print("Выберите опцию: ");
+            System.out.println("2. Создать новый поезд из файла данных");
             int choice = scanner.nextInt();
 
-            switch (choice) {
+            if (choice == 1) {
+                train = TrainDataConnector.loadTrainFromFile(filePath);
+            } else if (choice == 2) {
+                train = FileInitializer.initializeTrain("src/main/java/chapter10/var2/train_data.ser");
+                TrainDataConnector.saveTrainToFile(train, filePath);
+            } else {
+                System.out.println("Неверный выбор!");
+                return;
+            }
+
+            // Меню
+            System.out.println("=== Меню ===");
+            System.out.println("1. Подсчитать общую численность пассажиров и багажа");
+            System.out.println("2. Сортировать вагоны по уровню комфортности и вывести их");
+            System.out.println("3. Найти вагоны по числу пассажиров");
+            System.out.println("4. Вывести информацию о локомотиве");
+            System.out.println("5. Сохранить поезд в файл");
+
+            System.out.print("Выберите опцию: ");
+            int option = scanner.nextInt();
+
+            switch (option) {
                 case 1 -> {
-                    System.out.print("Введите путь к файлу для загрузки: ");
-                    String filePath = scanner.next();
-                    try {
-                        train = FileConnector.loadTrainFromFile(filePath);
-                        System.out.println("Поезд успешно загружен!");
-                    } catch (IOException | ClassNotFoundException e) {
-                        System.out.println("Ошибка при загрузке поезда: " + e.getMessage());
-                    }
+                    System.out.println("Общее число пассажиров: " + trainService.calculateTotalPassengers(train));
+                    System.out.println("Общее число багажа: " + trainService.calculateTotalBaggage(train));
                 }
                 case 2 -> {
-                    if (train != null) {
-                        System.out.print("Введите путь к файлу для сохранения: ");
-                        String filePath = scanner.next();
-                        try {
-                            FileConnector.saveTrainToFile(train, filePath);
-                            System.out.println("Поезд успешно сохранен!");
-                        } catch (IOException e) {
-                            System.out.println("Ошибка при сохранении поезда: " + e.getMessage());
-                        }
-                    } else {
-                        System.out.println("Поезд не загружен, сохранение невозможно.");
+                    trainService.sortCarriagesByComfort(train);
+                    System.out.println("Вагоны отсортированы по уровню комфортности:");
+                    for (Carriage carriage : train.getCarriages()) {
+                        System.out.println("Уровень комфортности: " + carriage.getComfortLevel() +
+                                ", Пассажиры: " + carriage.getPassengerCapacity() +
+                                ", Багаж: " + carriage.getBaggageCapacity());
                     }
                 }
                 case 3 -> {
-                    if (train != null) {
-                        TrainService trainService = new TrainService();
-                        System.out.println("Общее число пассажиров: " + trainService.calculateTotalPassengers(train));
-                        System.out.println("Общее число багажа: " + trainService.calculateTotalBaggage(train));
-                    } else {
-                        System.out.println("Поезд не загружен.");
-                    }
+                    System.out.print("Введите минимальное число пассажиров: ");
+                    int min = scanner.nextInt();
+                    System.out.print("Введите максимальное число пассажиров: ");
+                    int max = scanner.nextInt();
+                    var foundCarriages = trainService.findCarriagesByPassengerRange(train, min, max);
+                    System.out.println("Найдено вагонов: " + foundCarriages.size());
                 }
-                case 4 -> {
-                    if (train != null) {
-                        TrainService trainService = new TrainService();
-                        trainService.sortCarriagesByComfort(train);
-                        System.out.println("Вагоны отсортированы по уровню комфортности:");
-                        for (Carriage carriage : train.getCarriages()) {
-                            System.out.println("Уровень комфортности: " + carriage.getComfortLevel() +
-                                    ", Пассажиры: " + carriage.getPassengerCapacity() +
-                                    ", Багаж: " + carriage.getBaggageCapacity());
-                        }
-                    } else {
-                        System.out.println("Поезд не загружен.");
-                    }
-                }
-                case 5 -> {
-                    if (train != null) {
-                        TrainService trainService = new TrainService();
-                        System.out.print("Введите минимальное число пассажиров: ");
-                        int min = scanner.nextInt();
-                        System.out.print("Введите максимальное число пассажиров: ");
-                        int max = scanner.nextInt();
-                        var foundCarriages = trainService.findCarriagesByPassengerRange(train, min, max);
-                        System.out.println("Найдено вагонов: " + foundCarriages.size());
-                        for (Carriage carriage : foundCarriages) {
-                            System.out.println("Уровень комфортности: " + carriage.getComfortLevel() +
-                                    ", Пассажиры: " + carriage.getPassengerCapacity() +
-                                    ", Багаж: " + carriage.getBaggageCapacity());
-                        }
-                    } else {
-                        System.out.println("Поезд не загружен.");
-                    }
-                }
-                case 6 -> {
-                    if (train != null) {
-                        System.out.println("Информация о локомотиве:");
-                        System.out.println(train.getLocomotive());
-                    } else {
-                        System.out.println("Поезд не загружен.");
-                    }
-                }
-                case 7 -> {
-                    System.out.println("Выход из программы.");
-                    return; // Выход из программы
-                }
+                case 4 -> System.out.println(train.getLocomotive());
+                case 5 -> TrainDataConnector.saveTrainToFile(train, filePath);
                 default -> System.out.println("Неверный выбор!");
             }
+        } catch (Exception e) {
+            System.out.println("Ошибка: " + e.getMessage());
         }
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Train implements Serializable {
     private static final long serialVersionUID = 1L;
+
     private List<Carriage> carriages;
     private Locomotive locomotive;
 
