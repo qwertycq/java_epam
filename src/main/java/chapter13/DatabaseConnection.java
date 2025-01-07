@@ -6,18 +6,15 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/weatherdb";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "pass";
+    private static final String URL = "jdbc:h2:mem:weatherdb;DB_CLOSE_DELAY=-1";  // В памяти
+    private static final String USER = "sa";
+    private static final String PASSWORD = "";
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
     public static Connection getTestConnection() throws SQLException {
-        String testUrl = "jdbc:postgresql://localhost:5432/weatherdb_test";
-        String user = "postgres";
-        String password = "pass";
-        return DriverManager.getConnection(testUrl, user, password);
+        return DriverManager.getConnection("jdbc:h2:./test_weatherdb", USER, PASSWORD);
     }
 }

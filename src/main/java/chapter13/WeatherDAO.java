@@ -1,16 +1,20 @@
 package chapter13;
 
 import java.sql.*;
-import java.time.LocalDate;
 
 public class WeatherDAO {
+
+    private Connection conn;
+
+    public WeatherDAO(Connection conn) {
+        this.conn = conn;
+    }
 
     public void getWeatherByRegion(String regionName) {
         String query = "SELECT w.date, w.temperature, w.precipitation " +
                 "FROM weather w JOIN region r ON w.region_id = r.id " +
                 "WHERE r.name = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, regionName);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -26,8 +30,7 @@ public class WeatherDAO {
         String query = "SELECT w.date " +
                 "FROM weather w JOIN region r ON w.region_id = r.id " +
                 "WHERE r.name = ? AND w.precipitation = 'снег' AND w.temperature < ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, regionName);
             stmt.setDouble(2, maxTemperature);
             ResultSet rs = stmt.executeQuery();
@@ -45,8 +48,7 @@ public class WeatherDAO {
                 "JOIN region r ON w.region_id = r.id " +
                 "JOIN inhabitant_type i ON r.inhabitant_type_id = i.id " +
                 "WHERE i.language = ? AND w.date >= CURRENT_DATE - 7";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, language);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -64,8 +66,7 @@ public class WeatherDAO {
                 "JOIN region r ON w.region_id = r.id " +
                 "WHERE r.area > ? AND w.date >= CURRENT_DATE - 7 " +
                 "GROUP BY r.name";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setDouble(1, minArea);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
