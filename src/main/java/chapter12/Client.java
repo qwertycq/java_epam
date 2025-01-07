@@ -1,26 +1,34 @@
 package chapter12;
 
-class Client implements Runnable {
-    private final Account account;
-    private final Account targetAccount;
+import java.util.Random;
 
-    public Client(Account account, Account targetAccount) {
-        this.account = account;
-        this.targetAccount = targetAccount;
+class Client implements Runnable {
+    private final Cashier cashRegister;
+    private final Random random = new Random();
+
+    public Client(Cashier cashRegister) {
+        this.cashRegister = cashRegister;
     }
 
     @Override
     public void run() {
+        Thread.currentThread().setName("Клиент");
+
         try {
             while (true) {
-                // Клиент выполняет операции с деньгами
-                account.deposit(200);
-                account.withdraw(150);
-                account.transfer(targetAccount, 100);
-                account.pay(50);
-                account.deposit(200);
-
-                Thread.sleep(2000);
+                int action = random.nextInt(3);
+                int amount = random.nextInt(1000) + 1;
+                switch (action) {
+                    case 0:
+                        System.out.println(Thread.currentThread().getName() + " внес " + amount);
+                        cashRegister.deposit(amount);
+                        break;
+                    case 1:
+                        System.out.println(Thread.currentThread().getName() + " пытается снять " + amount);
+                        cashRegister.withdraw(amount);
+                        break;
+                }
+                Thread.sleep(random.nextInt(2000));
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

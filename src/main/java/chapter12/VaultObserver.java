@@ -1,19 +1,18 @@
 package chapter12;
 
 class VaultObserver implements Runnable {
-    private final Vault vault;
+    private final Cashier cashRegister;
 
-    public VaultObserver(Vault vault) {
-        this.vault = vault;
+    public VaultObserver(Cashier cashRegister) {
+        this.cashRegister = cashRegister;
     }
 
     @Override
     public void run() {
         try {
             while (true) {
-                vault.replenishCash();
-                vault.moveExcessCashToStorage();
-                Thread.sleep(2000);
+                cashRegister.manageFunds();
+                Thread.sleep(1000);
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

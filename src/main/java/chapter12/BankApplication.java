@@ -4,27 +4,15 @@ import java.util.concurrent.*;
 
 public class BankApplication {
     public static void main(String[] args) {
-        Vault vault = new Vault(5000);
-        ExecutorService cashierExecutor = Executors.newFixedThreadPool(3);
+        Vault vault = new Vault(10000);
+        Cashier cashier = new Cashier(2000, vault);
 
-        VaultObserver vaultObserver = new VaultObserver(vault);
-        Thread observerThread = new Thread(vaultObserver);
-        observerThread.start();
+        ExecutorService executor = Executors.newFixedThreadPool(5);
 
-        for (int i = 0; i < 3; i++) {
-            cashierExecutor.submit(new Cashier(vault));
-        }
+        executor.submit(new VaultObserver(cashier));
 
-        Account account1 = new Account(1000);
-        Account account2 = new Account(500);
-        Account account3 = new Account(1500);
+        executor.submit(new Client(cashier));
 
-        Thread clientThread1 = new Thread(new Client(account1, account2), "Клиент 1");
-        Thread clientThread2 = new Thread(new Client(account2, account3), "Клиент 2");
-        Thread clientThread3 = new Thread(new Client(account3, account1), "Клиент 3");
-
-        clientThread1.start();
-        clientThread2.start();
-        clientThread3.start();
+        executor.shutdown();
     }
 }
