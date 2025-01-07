@@ -6,20 +6,11 @@ import java.io.*;
 
 public class RemoveExtraSpaces {
     public static void main(String[] args) {
-        // Исходный файл (входной) и директория для результата
-        File inputFile = new File("src/main/java/chapter10/var3/Input.java");
-        File outputDirectory = new File("src/main/java/chapter10/var3/");
-        File outputFile = new File(outputDirectory, "Output.java");
+        String inputFilePath = System.getProperty("testInputPath", "src/main/java/chapter10/var3/Input.java");
+        String outputFilePath = System.getProperty("testOutputPath", "src/main/java/chapter10/var3/Output.java");
 
-        // Создание директории, если она не существует
-        if (!outputDirectory.exists()) {
-            if (outputDirectory.mkdir()) {
-                System.out.println("Создана директория: " + outputDirectory.getAbsolutePath());
-            } else {
-                System.out.println("Не удалось создать директорию.");
-                return;
-            }
-        }
+        File inputFile = new File(inputFilePath);
+        File outputFile = new File(outputFilePath);
 
         try (
                 BufferedReader reader = new BufferedReader(new FileReader(inputFile));
@@ -29,6 +20,11 @@ public class RemoveExtraSpaces {
             while ((line = reader.readLine()) != null) {
                 String trimmedLine = line.trim();
                 String compactedLine = trimmedLine.replaceAll("\\s+", " ");
+
+                if (compactedLine.contains("public class Input")) {
+                    compactedLine = compactedLine.replace("public class Input", "class ProcessedInput");
+                }
+
                 writer.write(compactedLine);
                 writer.newLine();
             }
